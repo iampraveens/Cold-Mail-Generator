@@ -1,37 +1,46 @@
 from pdf_handler import PDFHandler
 from web_handler import WebHandler
 from prompt_chains import PromptChain
+from utils.logger import logger
 
 class JobApplicationAssistant:
     def __init__(self, pdf_path, job_posting_url):
-        self.pdf_handler = PDFHandler(pdf_path)
-        self.web_handler = WebHandler(job_posting_url)
-        self.prompt_chain = PromptChain()
+        try:
+            self.pdf_handler = PDFHandler(pdf_path)
+            self.web_handler = WebHandler(job_posting_url)
+            self.prompt_chain = PromptChain()
+            logger.info("JobApplicationAssistant initialized successfully.")
+        except Exception as e:
+            logger.error(f"Error initializing JobApplicationAssistant: {e}")
+            raise
 
     def extract_resume_data(self):
-        pages = self.pdf_handler.get_pdf_text()
-        chunks = self.pdf_handler.get_text_chunks()
-        pdf_text = self.pdf_handler.get_all_text()
-        resume_data = self.prompt_chain.get_pdf_chain(pdf_text)
-        return resume_data
+        try:
+            pages = self.pdf_handler.get_pdf_text()
+            chunks = self.pdf_handler.get_text_chunks()
+            pdf_text = self.pdf_handler.get_all_text()
+            resume_data = self.prompt_chain.get_pdf_chain(pdf_text)
+            logger.info("Resume data extracted successfully.")
+            return resume_data
+        except Exception as e:
+            logger.error(f"Error extracting resume data: {e}")
+            raise
 
     def extract_job_posting_data(self):
-        web_text = self.web_handler.get_web_text()
-        job_description = self.prompt_chain.get_web_chain(web_text)
-        return job_description
+        try:
+            web_text = self.web_handler.get_web_text()
+            job_description = self.prompt_chain.get_web_chain(web_text)
+            logger.info("Job posting data extracted successfully.")
+            return job_description
+        except Exception as e:
+            logger.error(f"Error extracting job posting data: {e}")
+            raise
 
     def generate_cold_email(self, job_description, resume_data):
-        email_content = self.prompt_chain.get_email_chain(job_description, resume_data)
-        return email_content
-
-    # def run(self):
-    #     resume_data = self.extract_resume_data()
-    #     job_description = self.extract_job_posting_data()
-    #     email_content = self.generate_cold_email(job_description, resume_data)
-    #     print(email_content)
-        
-# pdf_path = "research/Praveen_S_CV.pdf"
-# job_posting_url = "https://sarvm.freshteam.com/jobs/1uuNcm-EuTUd/ai-ml-intern-fresher-remote"
-
-# assistant = JobApplicationAssistant(pdf_path, job_posting_url)
-# assistant.run()
+        try:
+            email_content = self.prompt_chain.get_email_chain(job_description, resume_data)
+            logger.info("Cold email generated successfully.")
+            return email_content
+        except Exception as e:
+            logger.error(f"Error generating cold email: {e}")
+            raise
