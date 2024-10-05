@@ -1,6 +1,6 @@
 import streamlit as st
 from main import JobApplicationAssistant
-from htmlTemplate import web_styles
+from html_template import web_styles
 import os
 
 def main():
