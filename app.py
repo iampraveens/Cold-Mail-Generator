@@ -1,7 +1,8 @@
+import os
+import tempfile
 import streamlit as st
 from main import JobApplicationAssistant
 from html_template import web_styles
-import os
 
 def main():
     web_styles()
@@ -14,18 +15,30 @@ def main():
 
     if uploaded_file and job_posting_url:
         # Save uploaded resume to a temporary file
-        pdf_path = os.path.join("temp_resume.pdf")
-        with open(pdf_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
+        # pdf_path = os.path.join("temp_resume.pdf")
+        # with open(pdf_path, "wb") as f:
+        #     f.write(uploaded_file.getbuffer())
 
         # Create an instance of JobApplicationAssistant
-        assistant = JobApplicationAssistant(pdf_path, job_posting_url)
-        
-        resume_data = assistant.extract_resume_data()
-        job_description = assistant.extract_job_posting_data()
-        
-        email_content = assistant.generate_cold_email(job_description, resume_data)
-        st.write(email_content)
+        try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+                temp_file.write(uploaded_file.getbuffer())
+                temp_pdf_path = temp_file.name
+                
+            assistant = JobApplicationAssistant(temp_pdf_path, job_posting_url)
+            
+            resume_data = assistant.extract_resume_data()
+            job_description = assistant.extract_job_posting_data()
+            
+            email_content = assistant.generate_cold_email(job_description, resume_data)
+            st.write(email_content)
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+            
+        finally:
+            # Delete the temporary file after processing
+            if os.path.exists(temp_pdf_path):
+                os.remove(temp_pdf_path)
 
     
 if __name__ == "__main__":
