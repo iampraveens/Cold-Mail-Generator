@@ -1,8 +1,10 @@
 # Cold-Mail-Generator 📧🤖
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/downloads/)
-[![LangChain](https://img.shields.io/badge/LangChain-0.0.184-orange)](https://python.langchain.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.12.0-red)](https://streamlit.io/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/downloads/)
+[![LangChain](https://img.shields.io/badge/LangChain-0.3.1-orange)](https://python.langchain.com/)
+[![LangChain_Community](https://img.shields.io/badge/LangChain_Community-0.3.2-orange)](https://python.langchain.com/)
+[![LangChain_Groq](https://img.shields.io/badge/LangChain_Groq-0.2.0-orange)](https://python.langchain.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.39.0-red)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Cold-Mail-Generator is an advanced AI-powered tool designed to revolutionize the job application process. By leveraging the power of Large Language Models (LLMs) and natural language processing, it generates personalized cold emails for job seekers, increasing their chances of landing interviews and ultimately, their dream jobs.
