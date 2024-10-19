@@ -5,6 +5,15 @@ from main import JobApplicationAssistant
 from html_template import web_styles
 
 def main():
+    """
+    Main entry point for the Streamlit app.
+
+    Uploads a resume PDF file from the user, extracts relevant information using the
+    JobApplicationAssistant class, and generates a cold email based on a job posting URL
+    also provided by the user.
+
+    :return: None
+    """
     web_styles()
 
     with st.sidebar:
